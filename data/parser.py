@@ -49,7 +49,11 @@ timestamp': 1513664991172L
 unit': 30
 """
 def coin_candle_datas(coin, time, count):
-    url = 'https://crix-api-endpoint.upbit.com/v1/crix/candles/minutes/' + time
+    if time in ['days', 'weeks', 'months']:
+        url = 'https://crix-api-endpoint.upbit.com/v1/crix/candles/' + time
+    else:
+        url = 'https://crix-api-endpoint.upbit.com/v1/crix/candles/minutes/' + time
+
     params = {'code': 'CRIX.UPBIT.KRW-' + coin, 'count': count}
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(url, params=params, headers=headers).text
